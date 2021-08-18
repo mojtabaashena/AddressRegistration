@@ -4,14 +4,16 @@ using AddressRegistration.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AddressRegistration.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210818140912_CustomersAdd")]
+    partial class CustomersAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +25,9 @@ namespace AddressRegistration.Data.Migrations
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("Customerid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descrip")
@@ -41,6 +46,8 @@ namespace AddressRegistration.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Customerid");
 
                     b.ToTable("Product");
                 });
@@ -72,21 +79,6 @@ namespace AddressRegistration.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Customer");
-                });
-
-            modelBuilder.Entity("CustomerProduct", b =>
-                {
-                    b.Property<Guid>("Customersid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Productsid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Customersid", "Productsid");
-
-                    b.HasIndex("Productsid");
-
-                    b.ToTable("CustomerProduct");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -289,19 +281,11 @@ namespace AddressRegistration.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CustomerProduct", b =>
+            modelBuilder.Entity("AddressRegistration.Data.Entities.Product", b =>
                 {
                     b.HasOne("AddressRegistration.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("Customersid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AddressRegistration.Data.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("Productsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Products")
+                        .HasForeignKey("Customerid");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -353,6 +337,11 @@ namespace AddressRegistration.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AddressRegistration.Models.Customer", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

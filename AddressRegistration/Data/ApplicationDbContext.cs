@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using AddressRegistration.Data.Entities;
+using AddressRegistration.Models;
 
 namespace AddressRegistration.Data
 {
@@ -14,5 +15,6 @@ namespace AddressRegistration.Data
         {
         }
         public DbSet<AddressRegistration.Data.Entities.Product> Product { get; set; }
+        public DbSet<AddressRegistration.Models.Customer> Customer { get; set; }
     }
 }

@@ -13,8 +13,7 @@ namespace AddressRegistration.Models
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string Descrip { get; set; }
-        public Guid UserID { get; set; }
-
-        public List<Data.Entities.Product> Products { get; set; }
+        public DateTime dateTime { get; set; } 
+        public ICollection<Data.Entities.Product> Products { get; set; }
     }
 }
