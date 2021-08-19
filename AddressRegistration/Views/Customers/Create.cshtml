@@ -1,4 +1,4 @@
-﻿@model AddressRegistration.Models.Customer
+﻿@model AddressRegistration.ViewModel.CustomerViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -42,7 +42,15 @@
                 <input asp-for="dateTime" class="form-control" />
                 <span asp-validation-for="dateTime" class="text-danger"></span>
             </div>
-           @await Component.InvokeAsync("SelectProduct")
+            @for (Int32 i = 0; i < Model.Products.Count; i++)
+            {
+                <input type="checkbox" asp-for="@Model.Products[i].IsSelected" />
+                <label asp-for="@Model.Products[i].IsSelected">@Model.Products[i].ProductName</label>
+                <input type="hidden" asp-for="@Model.Products[i].ProductName" />
+                <input type="hidden" asp-for="@Model.Products[i].id" />
+                <br />
+            }
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

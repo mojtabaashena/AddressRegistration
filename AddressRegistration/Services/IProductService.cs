@@ -1,4 +1,5 @@
 ﻿using AddressRegistration.Data.Entities;
+using AddressRegistration.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace AddressRegistration.Services
         public Task<List<Product>> GetAllProductsAsync();
 
         public List<Product> GetAllProducts();
+        public List<ProductViewModel> GetCustomerProducts();
     }
 }

@@ -1,13 +1,24 @@
-﻿@model List<AddressRegistration.Data.Entities.Product>
-@{ 
+﻿@model List<AddressRegistration.ViewModel.ProductViewModel>
+@{
     Layout = null;
 }
-<div class="list-group">
+@*<div class="list-group">
     @foreach (var item in Model)
     {
         <label class="list-group-item">
-            <input class="form-check-input me-1"  type="checkbox" value="">
-            @item.ProductName  
+            <input id="@item.id" class="form-check-input me-1" type="checkbox" value="@item.IsSelected">
+            @item.ProductName
         </label>
     }
-</div>
+</div>*@
+
+
+
+@for (Int32 i = 0; i < this.Model.Count ; i++)
+{
+    <input type="checkbox" asp-for="@Model[i].IsSelected" />
+    <label asp-for="@Model[i].IsSelected">@Model[i].ProductName</label>
+    <input type="hidden" asp-for="@Model[i].ProductName" />
+    <input type="hidden" asp-for="@Model[i].id" />
+    <br />
+} 

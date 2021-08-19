@@ -16,7 +16,7 @@ namespace AddressRegistration.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            return View(productService.GetAllProducts()); 
+            return View(productService.GetCustomerProducts()); 
         }
     }
 }
